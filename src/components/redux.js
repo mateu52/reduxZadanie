@@ -1,9 +1,4 @@
-//types
-//const COUNTER_LOAD = 'COUNTER_LOAD'
-//const COUNTER_REFRESH = 'COUNTER_REFRESH'
-//const COUNTER_ADD = 'COUNTER_ADD'
-//const LOAD_FILED = 'LOAD_FILED'
-//const LOAD_SUCCEDED = 'LOAD_SUCCEDED'
+
 
 const FETCH_POST_REQUESTED = 'FETCH_POST_REQUESTED'
 const FETCH_POST_SUCCEDED = 'FETCH_POST_SUCCEDED'
@@ -15,11 +10,6 @@ const INITIAL_STATE = {
     isLoading: false,
     isError: false
 }
-//const load = () =>({type: COUNTER_LOAD})
-//const loadSucceded = data =>({type: LOAD_SUCCEDED, payload: data})
-//const loadFailed = () =>({type: LOAD_FILED})
-//const refresh = user => ({type: COUNTER_REFRESH, user})
-//const add = user => ({type: COUNTER_ADD, user})
 const fetchRequested = () => ({ type: FETCH_POST_REQUESTED});
 const fetchFailed = () => ({ type : FETCH_POST_FAILED});
 const fetchSucceded = data => ({ type: FETCH_POST_SUCCEDED, payload: data });
