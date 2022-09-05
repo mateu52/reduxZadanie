@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 }
 const loadSucceded = users =>({type: LOAD_SUCCEDED, payload: users})
 
-const add = user => ({type: COUNTER_ADD, user})
+const add = user => ({type: COUNTER_ADD, payload: user})
 
  export const reset = () => ({type: COUNTER_RESET})
 
@@ -60,7 +60,7 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoading: false,
                 isError: false,
-                users: [ ...state.users, action.payload ]
+                users: [...state.users, action.payload]
             }
         case LOAD_FILED:
             return {
@@ -91,7 +91,7 @@ export const getOneUser = () => (dispatch) => {
     dispatch(load());
     fetchUsers(1)
         .then((result) => {
-            dispatch(add(result.results));
+            dispatch(add(result.results[0]));
         })
         .catch((e) => {
             dispatch(loadFailed());

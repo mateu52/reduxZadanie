@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import UsersList from './UsersList';
 import { resetUsers, getUsers, getOneUser, selectUsers } from '../redux';
-function Home({users, handleLoad, handleReset}) {
+function Home({users, handleLoad, handleReset, handleAdd}) {
     // const handleLoad = () => {
     //     getUsers();
     // };
@@ -18,7 +18,7 @@ function Home({users, handleLoad, handleReset}) {
             <h3>Home Container</h3>
             <button onClick={handleLoad}>Load</button>
             <button onClick={handleReset}>Reset</button>
-            {/* <button onClick={handleAdd}>Add</button> */}
+            <button onClick={handleAdd}>Add</button>
             <div>
             <h2>Users</h2>
             <br></br>
@@ -34,7 +34,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
     handleLoad: () => dispatch(getUsers()),
-    handleReset : () => dispatch(resetUsers())
+    handleReset : () => dispatch(resetUsers()),
+    handleAdd: () => dispatch(getOneUser())
 })
 // { resetUsers, getUsers, getOneUser}
 
