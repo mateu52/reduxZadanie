@@ -3,16 +3,6 @@ import { connect } from 'react-redux';
 import UsersList from './UsersList';
 import { resetUsers, getUsers, getOneUser, selectUsers } from '../redux';
 function Home({users, handleLoad, handleReset, handleAdd}) {
-    // const handleLoad = () => {
-    //     getUsers();
-    // };
-    // const handleReset = () => {
-    //     resetUsers();
-    // }
-    // const handleAdd = () => {
-    //     getOneUser();
-    // };
-
     return(
         <div>
             <h3>Home Container</h3>
@@ -37,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
     handleReset : () => dispatch(resetUsers()),
     handleAdd: () => dispatch(getOneUser())
 })
-// { resetUsers, getUsers, getOneUser}
 
 
 

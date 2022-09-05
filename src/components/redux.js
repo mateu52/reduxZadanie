@@ -24,16 +24,6 @@ const loadFailed = () =>({type: LOAD_FILED})
 
 const load = () =>({type: COUNTER_LOAD})
 
-// export const fetchPosts = () => {
-//     return function(dispatch){
-//         dispatch(load())
-//         fetch("https://jsonplaceholder.typicode.com/posts")
-//         .then(response => response.json())
-//         .then(data => dispatch(loadSucceded(data.slice(0, 3))))
-//         .catch(error => dispatch(loadFailed()));
-//     }
-// }
-
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
         case COUNTER_LOAD:
