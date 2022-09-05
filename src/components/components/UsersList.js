@@ -1,14 +1,15 @@
 import React from "react";
 
 
-function UsersList({ posts }) {
+function UsersList({ users }) {
     return (
     <div><p>Users:</p>
-            {posts.map(post => (
-        <h3 key={post.id}>
-            {post.id} {post.title}
-        </h3>
-        ))}
+            {users.map(user => {
+                return (
+                    <div key={user.login.uuid}>
+                        {user.name.first}
+                    </div>)
+            })}
     </div>
     );
 }

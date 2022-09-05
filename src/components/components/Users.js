@@ -1,42 +1,31 @@
-import React, { Component }  from 'react';
+import React, { useEffect, useState }  from 'react';
 import { connect } from 'react-redux';
 import UsersList from './UsersList';
-import { fetchPosts } from '../redux';
-import { reset } from '../redux';
+import { getUsers, selectUsers } from '../redux'
 
-class Users extends Component{
-    fetchPosts = () => {
-        this.props.fetchPosts();
-    };
-    fetchPostReset = () => {
-        this.props.reset();
-    };
-    render(){
-    const { posts, isLoading } = this.props;
+const Users = ({users, isLoading, getUsers}) => {
+    const [ localLoading, setLocalLoading ] = useState(true);
+    useEffect(() => {
+        !users.length && getUsers();
+        setLocalLoading(false);
+    },[getUsers, users]);
+
+
     return(
         <div>
             <h2>Users</h2>
-            {isLoading && <p>Loading...</p>}
-            <button onClick={this.fetchPosts}>Fetch users</button>
-            <button onClick={this.fetchPostReset}>Reset list</button>
-            <UsersList posts={posts} />
-            {posts.map(post => {
-                return (
-                    <div key={post.id}>
-                        {post.title}
-                    </div>)
-            })}
+            {localLoading && <p>Loading...</p>}
+            <br></br>
+            <UsersList users={users} />
         </div>
-    )}
+    )
 }
 
 const mapStateToProps = state => ({
-    posts: state.posts.posts,
-  isLoading: state.posts.isLoading,
-  isError: state.posts.isError
+    users: selectUsers(state),
+    posts: state.users.posts,
+  isLoading: state.users.isLoading,
+  isError: state.users.isError
 })
-const mapDispatchToProps = dispatch => ({
-    fetchPosts: () => dispatch(fetchPosts()),
-    fetchPostReset: () => dispatch(reset())
-})
+const mapDispatchToProps = { getUsers };
 export default connect(mapStateToProps, mapDispatchToProps)(Users);

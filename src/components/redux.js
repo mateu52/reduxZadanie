@@ -1,4 +1,7 @@
-
+export const fetchUsers = (usersCount = 10) => {
+    return fetch(`https://randomuser.me/api/?results=${usersCount}`)
+    .then((response) => response.json());
+};
 
 const COUNTER_LOAD = 'COUNTER_LOAD'
 const COUNTER_RESET = 'COUNTER_RESET'
@@ -7,7 +10,7 @@ const LOAD_FILED = 'LOAD_FILED'
 const LOAD_SUCCEDED = 'LOAD_SUCCEDED'
 //actions
 const INITIAL_STATE = {
-    posts: [],
+    users: [],
     isLoading: false,
     isError: false
 }
@@ -21,15 +24,15 @@ const loadFailed = () =>({type: LOAD_FILED})
 
 const load = () =>({type: COUNTER_LOAD})
 
-export const fetchPosts = () => {
-    return function(dispatch){
-        dispatch(load())
-        fetch("https://jsonplaceholder.typicode.com/posts")
-        .then(response => response.json())
-        .then(data => dispatch(loadSucceded(data.slice(0, 3))))
-        .catch(error => dispatch(loadFailed()));
-    }
-}
+// export const fetchPosts = () => {
+//     return function(dispatch){
+//         dispatch(load())
+//         fetch("https://jsonplaceholder.typicode.com/posts")
+//         .then(response => response.json())
+//         .then(data => dispatch(loadSucceded(data.slice(0, 3))))
+//         .catch(error => dispatch(loadFailed()));
+//     }
+// }
 
 export default (state = INITIAL_STATE, action) => {
     switch(action.type) {
@@ -44,11 +47,11 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoading: false,
                 isError: false,
-                posts: action.payload
+                users: action.payload
             }
         case COUNTER_RESET:
             return {
-                posts: [],
+                users: [],
                 isLoading: false,
                 isError: true
             }
@@ -57,15 +60,42 @@ export default (state = INITIAL_STATE, action) => {
                 ...state,
                 isLoading: false,
                 isError: false,
-                posts: [ ...state.users, action.payload ]
+                users: [ ...state.users, action.payload ]
             }
         case LOAD_FILED:
             return {
                 ...state,
                 isLoading: true,
-                isError: false
+                isError: true
             }
         default:
             return state;
     }
 }
+
+export const getUsers = () => (dispatch) => {
+    dispatch(load());
+    fetchUsers()
+        .then((result) => { 
+            dispatch(loadSucceded(result.results))
+        })
+        .catch((e) => {
+            dispatch(loadFailed)
+        })
+}
+export const resetUsers = () => (dispatch) => {
+    dispatch(reset());
+}
+
+export const getOneUser = () => (dispatch) => {
+    dispatch(load());
+    fetchUsers(1)
+        .then((result) => {
+            dispatch(add(result.results));
+        })
+        .catch((e) => {
+            dispatch(loadFailed());
+        })
+}
+
+export const selectUsers = (state) => state.users.users || []
